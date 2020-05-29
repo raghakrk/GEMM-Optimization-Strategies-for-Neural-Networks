@@ -43,6 +43,7 @@ vector<vector<double>>softmax_crossentropy::backward(vector<vector<double>> X, v
 		for (size_t j = 0; j < Y[0].size(); j++)
 		{
 			this->backward_output[i][j] = (Y[i][j] - this->prob[i][j]) / X.size();
+			this->backward_output[i][j] *= -1;
 		}
 	}
 	return this->backward_output;
