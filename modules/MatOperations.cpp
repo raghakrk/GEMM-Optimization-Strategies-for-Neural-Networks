@@ -5,7 +5,7 @@ vector<vector<double>> MatTranspose(vector<vector<double>>& MAT)
 {
 	int row = MAT.size();
 	int col = MAT[0].size();
-	vector<vector<double>> MAT_T(row, vector<double>(col));
+	vector<vector<double>> MAT_T(col, vector<double>(row));
 	for (int i = 0; i < row; ++i)
 		for (int j = 0; j < col; ++j) {
 			MAT_T[j][i] = MAT[i][j];
@@ -58,7 +58,7 @@ void vectoradd(vector<vector<double>> &WX, vector<vector<double>> b)
 	int col = WX[0].size();
 	//cout << b.size() << " " << row << endl;
 	try {
-		if (b.size() != row)
+		if (b[0].size() != col)
 			throw "Dimension mismatch in vector add!";
 		for (int i = 0; i < row; i++)
 		{
@@ -76,10 +76,11 @@ void vectoradd(vector<vector<double>> &WX, vector<vector<double>> b)
 // Function to sum up the rows
 vector<vector<double>>rowsum(vector<vector<double>> input)
 {
-	vector<vector<double>> sum;
 	int row = input.size();
-	for (auto i = 0; i < row; ++i)
-		sum[i].push_back(accumulate(begin(input[i]), end(input[i]), 0));
+	vector<vector<double>> sum(row, vector<double>(1));
+	for (auto i = 0; i < row; ++i) {
+		sum[i][0]= accumulate(begin(input[i]), end(input[i]), 0);
+	}
 	return sum;
 }
 
