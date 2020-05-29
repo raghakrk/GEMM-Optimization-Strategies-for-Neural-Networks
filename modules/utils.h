@@ -10,8 +10,8 @@
 #include <cmath>
 
 using namespace std;
-int ReverseInt(int i);
-void ReadMNIST(string filename, int NumberOfImages, int DataOfAnImage, vector<vector<double>>& arr);
+void read_mnist_images(string full_path, int& number_of_images, int& image_size, vector<vector<double>>& X);
+vector<int> read_mnist_labels(string full_path, int& number_of_labels);
 vector<vector<double>> make2Dvec(int row, int col);
 vector<vector<double>> MatTranspose(vector<vector<double>>& MAT);
 vector<vector<double>> MATMUL(vector<vector<double>> x, vector<vector<double>> w);
@@ -22,13 +22,15 @@ vector<vector<double>> multiply(vector<vector<double>>A, vector<vector<double>>B
 
 class softmax_crossentropy
 {
+public:
 	int inputlen;
 	int inputdim;
-public:
-	softmax_crossentropy(vector<vector<double>> X);
-	vector<vector<double>> forward();
+	softmax_crossentropy();
+	double forward(vector<vector<double>> X, vector<vector<double>> Y);
+	vector<vector<double>> backward(vector<vector<double>> X, vector<vector<double>> Y);
+	vector<vector<double>> backward_output;
 	vector<vector<double>> prob;
-	vector<vector<double>> X;
+	double forward_output;
 };
 
 class reLU
